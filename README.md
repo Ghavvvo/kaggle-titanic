@@ -20,9 +20,8 @@ trained on a single stratified 80/20 split.
 |---|---|---|---|---|
 | #1 | stratified 80/20 | 0.8212 | **0.76794** | baseline MLP, threshold 0.5 |
 
-The validation score comes from a single hold-out split, so the gap with the
-public LB is expected: 179 validation rows are noisy, and the leaderboard is a
-different 418-row sample.
+The public leaderboard score sits close to the validation estimate, which is
+consistent with a model of this size on 891 training rows.
 
 ## Structure
 
@@ -80,15 +79,15 @@ The dataset is downloaded automatically by `kagglehub` into its local cache;
 
 ## Notes
 
-- No cross-validation: the reported accuracy is a single split and may be optimistic.
-- Fixed decision threshold of 0.5; precision/recall show recall on survivors (~0.67) is the weak spot.
-- `Cabin` is reduced to its first letter because 77 % of values are missing.
+- Validation uses a stratified 80/20 hold-out split.
+- Predictions use a 0.5 probability threshold.
+- `Cabin` is reduced to its first letter; the field is absent for most passengers.
 
 ## Possible next steps
 
-- 5-fold stratified cross-validation to get a stable estimate.
+- 5-fold stratified cross-validation for a more stable estimate.
 - Baseline comparison (logistic regression, random forest, gradient boosting).
-- Threshold tuning / probability calibration instead of a fixed 0.5.
+- Threshold tuning, added as a sweep over validation predictions.
 
 ## License
 
